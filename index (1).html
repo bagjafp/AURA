@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA Dashboard - AI-driven Utility & Resource Automation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', 'Open Sans', 'Lato', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #1e293b;
+            border-bottom: 2px solid #334155;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 2rem;
+            color: #60a5fa;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        /* Main Content Styles */
+        main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: #1e293b;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            border: 1px solid #334155;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: #60a5fa;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-content {
+            color: #cbd5e1;
+        }
+
+        /* Lighting Zone Styles */
+        .zone-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        .zone-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .zone-name {
+            font-size: 1rem;
+        }
+
+        .toggle-button {
+            padding: 0.4rem 1rem;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            font-size: 0.875rem;
+            transition: opacity 0.3s;
+        }
+
+        .toggle-button:hover {
+            opacity: 0.9;
+        }
+
+        .toggle-button.on {
+            background-color: #10b981;
+        }
+
+        .toggle-button.off {
+            background-color: #6b7280;
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .slider-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+            -webkit-appearance: none;
+            background: #334155;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #60a5fa;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #60a5fa;
+            cursor: pointer;
+            border: none;
+        }
+
+        .status {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #10b981;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: #0f172a;
+            border-radius: 6px;
+        }
+
+        /* HVAC Styles */
+        .hvac-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+        }
+
+        .hvac-name {
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .hvac-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .hvac-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .hvac-value {
+            color: #60a5fa;
+            font-weight: 500;
+        }
+
+        .hvac-badge {
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: white;
+        }
+
+        .hvac-badge.cooling {
+            background-color: #3b82f6;
+        }
+
+        .hvac-badge.idle {
+            background-color: #9ca3af;
+        }
+
+        /* Solar Energy Styles */
+        .solar-icon {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .energy-main {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .energy-label {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+        }
+
+        .energy-value {
+            font-size: 2.5rem;
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        .energy-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            background-color: #0f172a;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+
+        .energy-stat {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+        }
+
+        .energy-stat-label {
+            color: #94a3b8;
+        }
+
+        .energy-stat-value {
+            color: #60a5fa;
+            font-weight: 500;
+        }
+
+        /* Energy Consumption Styles */
+        .chart-placeholder {
+            height: 150px;
+            background-color: #0f172a;
+            border: 2px dashed #334155;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .energy-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            font-size: 1rem;
+            align-items: center;
+        }
+
+        .energy-total-value {
+            color: #f59e0b;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        /* Alerts Styles */
+        .alerts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .alert-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            align-items: flex-start;
+        }
+
+        .alert-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: white;
+            flex-shrink: 0;
+            font-weight: 500;
+        }
+
+        .alert-badge.high {
+            background-color: #ef4444;
+        }
+
+        .alert-badge.med {
+            background-color: #f59e0b;
+        }
+
+        .alert-badge.low {
+            background-color: #3b82f6;
+        }
+
+        .alert-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Sensors Styles */
+        .sensors-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sensor-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #0f172a;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            font-size: 0.9rem;
+        }
+
+        .sensor-label {
+            color: #94a3b8;
+        }
+
+        .sensor-value {
+            color: #10b981;
+            font-weight: 500;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>AURA Dashboard</h1>
+                <p>AI-driven Utility & Resource Automation</p>
+            </div>
+            <nav>
+                <a href="#">Overview</a>
+                <a href="#">Lighting</a>
+                <a href="#">HVAC</a>
+                <a href="#">Energy</a>
+                <a href="#">Alerts</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main>
+        <div class="dashboard-grid">
+            <!-- Widget 1: Smart Lighting Control -->
+            <div class="card">
+                <h2 class="card-title">Lighting Zones</h2>
+                <div class="card-content">
+                    <div class="zone-item">
+                        <div class="zone-header">
+                            <span class="zone-name">Office Wing A</span>
+                            <button class="toggle-button on" onclick="toggleLight(0)">ON</button>
+                        </div>
+                        <div class="slider-container">
+                            <label class="slider-label">Brightness: <span id="brightness-0">75</span>%</label>
+                            <input type="range" class="slider" min="0" max="100" value="75" oninput="updateBrightness(0, this.value)">
+                        </div>
+                    </div>
+
+                    <div class="zone-item">
+                        <div class="zone-header">
+                            <span class="zone-name">Lobby</span>
+                            <button class="toggle-button on" onclick="toggleLight(1)">ON</button>
+                        </div>
+                        <div class="slider-container">
+                            <label class="slider-label">Brightness: <span id="brightness-1">100</span>%</label>
+                            <input type="range" class="slider" min="0" max="100" value="100" oninput="updateBrightness(1, this.value)">
+                        </div>
+                    </div>
+
+                    <div class="zone-item">
+                        <div class="zone-header">
+                            <span class="zone-name">Floor 5</span>
+                            <button class="toggle-button off" onclick="toggleLight(2)">OFF</button>
+                        </div>
+                        <div class="slider-container">
+                            <label class="slider-label">Brightness: <span id="brightness-2">0</span>%</label>
+                            <input type="range" class="slider" min="0" max="100" value="0" oninput="updateBrightness(2, this.value)">
+                        </div>
+                    </div>
+
+                    <div class="status">System: DALI Connected</div>
+                </div>
+            </div>
+
+            <!-- Widget 2: HVAC Optimization -->
+            <div class="card">
+                <h2 class="card-title">HVAC Status</h2>
+                <div class="card-content">
+                    <div class="hvac-item">
+                        <div class="hvac-name">Conference Room 1</div>
+                        <div class="hvac-details">
+                            <div class="hvac-row">
+                                <span>Current Temp:</span>
+                                <span class="hvac-value">22°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Target Temp:</span>
+                                <span class="hvac-value">24°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Mode:</span>
+                                <span class="hvac-badge cooling">Cooling</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hvac-item">
+                        <div class="hvac-name">CEO Office</div>
+                        <div class="hvac-details">
+                            <div class="hvac-row">
+                                <span>Current Temp:</span>
+                                <span class="hvac-value">23°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Target Temp:</span>
+                                <span class="hvac-value">23°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Mode:</span>
+                                <span class="hvac-badge idle">Idle</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="status">Systems: VFD Pumps & Fans Active</div>
+                </div>
+            </div>
+
+            <!-- Widget 3: Renewable Energy -->
+            <div class="card">
+                <h2 class="card-title">Solar Panel Generation</h2>
+                <div class="card-content">
+                    <div class="solar-icon">☀️</div>
+                    <div class="energy-main">
+                        <div class="energy-label">Live Output</div>
+                        <div class="energy-value">120 kW</div>
+                    </div>
+                    <div class="energy-stats">
+                        <div class="energy-stat">
+                            <span class="energy-stat-label">Today's Total:</span>
+                            <span class="energy-stat-value">850 kWh</span>
+                        </div>
+                        <div class="energy-stat">
+                            <span class="energy-stat-label">Carbon Saved:</span>
+                            <span class="energy-stat-value">600 kg CO₂</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget 4: Energy Consumption -->
+            <div class="card">
+                <h2 class="card-title">Live Energy Consumption</h2>
+                <div class="card-content">
+                    <div class="chart-placeholder">
+                        [Bar Chart Showing Consumption by Panel]
+                    </div>
+                    <div class="energy-total">
+                        <span>Total Building Load:</span>
+                        <span class="energy-total-value">450 kW</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget 5: AI Anomaly Alerts -->
+            <div class="card">
+                <h2 class="card-title">🚨 AI Alerts & Notifications</h2>
+                <div class="card-content">
+                    <div class="alerts-list">
+                        <div class="alert-item">
+                            <span class="alert-badge high">[HIGH]</span>
+                            <span class="alert-text">Anomaly Detected: HVAC Unit 3 (Floor 4) consumption spiked +30%. Maintenance notified.</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-badge med">[MED]</span>
+                            <span class="alert-text">Weather Forecast: High heat (35°C) predicted. Pre-cooling procedures will activate at 10:00 AM.</span>
+                        </div>
+                        <div class="alert-item">
+                            <span class="alert-badge low">[LOW]</span>
+                            <span class="alert-text">Lighting Zone 'Lobby' active outside of schedule. Please review.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widget 6: Building IoT Sensors -->
+            <div class="card">
+                <h2 class="card-title">IoT Sensor Status (Digital Twin)</h2>
+                <div class="card-content">
+                    <div class="sensors-list">
+                        <div class="sensor-item">
+                            <span class="sensor-label">Occupancy (Building):</span>
+                            <span class="sensor-value">420 people</span>
+                        </div>
+                        <div class="sensor-item">
+                            <span class="sensor-label">Indoor Air Quality (Lobby):</span>
+                            <span class="sensor-value">Good (450 ppm CO₂)</span>
+                        </div>
+                        <div class="sensor-item">
+                            <span class="sensor-label">Water Flow Rate (Main):</span>
+                            <span class="sensor-value">15 L/min</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Store lighting zones state
+        const lightingZones = [
+            { on: true, brightness: 75 },
+            { on: true, brightness: 100 },
+            { on: false, brightness: 0 }
+        ];
+
+        // Toggle light on/off
+        function toggleLight(index) {
+            const zone = lightingZones[index];
+            zone.on = !zone.on;
+            
+            // Get button element
+            const buttons = document.querySelectorAll('.toggle-button');
+            const button = buttons[index];
+            
+            if (zone.on) {
+                button.classList.remove('off');
+                button.classList.add('on');
+                button.textContent = 'ON';
+                zone.brightness = 75;
+            } else {
+                button.classList.remove('on');
+                button.classList.add('off');
+                button.textContent = 'OFF';
+                zone.brightness = 0;
+            }
+            
+            // Update slider
+            const sliders = document.querySelectorAll('.slider');
+            sliders[index].value = zone.brightness;
+            document.getElementById(`brightness-${index}`).textContent = zone.brightness;
+        }
+
+        // Update brightness from slider
+        function updateBrightness(index, value) {
+            const zone = lightingZones[index];
+            zone.brightness = parseInt(value);
+            
+            // Update label
+            document.getElementById(`brightness-${index}`).textContent = value;
+            
+            // Update button state based on brightness
+            const buttons = document.querySelectorAll('.toggle-button');
+            const button = buttons[index];
+            
+            if (parseInt(value) > 0 && !zone.on) {
+                zone.on = true;
+                button.classList.remove('off');
+                button.classList.add('on');
+                button.textContent = 'ON';
+            } else if (parseInt(value) === 0 && zone.on) {
+                zone.on = false;
+                button.classList.remove('on');
+                button.classList.add('off');
+                button.textContent = 'OFF';
+            }
+        }
+    </script>
+</body>
+</html>
