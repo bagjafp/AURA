@@ -439,7 +439,7 @@
                 <div class="card-content">
                     <div class="zone-item">
                         <div class="zone-header">
-                            <span class="zone-name">Open Office</span>
+                            <span class="zone-name">Lobby</span>
                             <button class="toggle-button on" onclick="toggleLight(0)">ON</button>
                         </div>
                         <div class="slider-container">
@@ -461,22 +461,11 @@
 
                     <div class="zone-item">
                         <div class="zone-header">
-                            <span class="zone-name">Lobby</span>
-                            <button class="toggle-button off" onclick="toggleLight(2)">OFF</button>
+                            <span class="zone-name">Open Office</span>
+                            <button class="toggle-button off" onclick="toggleLight(2)">ON</button>
                         </div>
                         <div class="slider-container">
-                            <label class="slider-label">Brightness: <span id="brightness-2">0</span>%</label>
-                            <input type="range" class="slider" min="0" max="100" value="0" oninput="updateBrightness(2, this.value)">
-                        </div>
-                    </div>
-
-                    <div class="zone-item">
-                        <div class="zone-header">
-                            <span class="zone-name">Lobby</span>
-                            <button class="toggle-button off" onclick="toggleLight(2)">OFF</button>
-                        </div>
-                        <div class="slider-container">
-                            <label class="slider-label">Brightness: <span id="brightness-2">0</span>%</label>
+                            <label class="slider-label">Brightness: <span id="brightness-2">40</span>%</label>
                             <input type="range" class="slider" min="0" max="100" value="0" oninput="updateBrightness(2, this.value)">
                         </div>
                     </div>
@@ -490,11 +479,11 @@
                 <h2 class="card-title">HVAC Status</h2>
                 <div class="card-content">
                     <div class="hvac-item">
-                        <div class="hvac-name">Conference Room 1</div>
+                        <div class="hvac-name">Lobby</div>
                         <div class="hvac-details">
                             <div class="hvac-row">
                                 <span>Current Temp:</span>
-                                <span class="hvac-value">22°C</span>
+                                <span class="hvac-value">25°C</span>
                             </div>
                             <div class="hvac-row">
                                 <span>Target Temp:</span>
@@ -508,11 +497,29 @@
                     </div>
 
                     <div class="hvac-item">
-                        <div class="hvac-name">CEO Office</div>
+                        <div class="hvac-name">Corridor</div>
                         <div class="hvac-details">
                             <div class="hvac-row">
                                 <span>Current Temp:</span>
                                 <span class="hvac-value">23°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Target Temp:</span>
+                                <span class="hvac-value">23°C</span>
+                            </div>
+                            <div class="hvac-row">
+                                <span>Mode:</span>
+                                <span class="hvac-badge idle">Idle</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hvac-item">
+                        <div class="hvac-name">Open Office</div>
+                        <div class="hvac-details">
+                            <div class="hvac-row">
+                                <span>Current Temp:</span>
+                                <span class="hvac-value">22°C</span>
                             </div>
                             <div class="hvac-row">
                                 <span>Target Temp:</span>
