@@ -470,6 +470,17 @@
                         </div>
                     </div>
 
+                    <div class="zone-item">
+                        <div class="zone-header">
+                            <span class="zone-name">Lobby</span>
+                            <button class="toggle-button off" onclick="toggleLight(2)">OFF</button>
+                        </div>
+                        <div class="slider-container">
+                            <label class="slider-label">Brightness: <span id="brightness-2">0</span>%</label>
+                            <input type="range" class="slider" min="0" max="100" value="0" oninput="updateBrightness(2, this.value)">
+                        </div>
+                    </div>
+
                     <div class="status">System: DALI Connected</div>
                 </div>
             </div>
